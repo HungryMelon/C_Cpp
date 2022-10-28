@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "unistd.h"
 #include "wonCheck.c"
+#include "bot.c"
 // ═ ║ ╔ ╚ ╗ ╝ ╠ ╣ ╩ ╦ ╬
 
 void print_field(char field[3][3]){
@@ -26,9 +27,9 @@ int main(){
 	int counter = 0;
 
 	while(true){ //global loop
-		
 
 		char who = whoIswho == true ? 'X' : '0'; //who move now
+		char enemy = whoIswho == true ? '0' : 'X'; //who move now
 		int pos = 0;
 		//io:
 		if (winner != 0){
@@ -42,9 +43,9 @@ int main(){
 		print_field(field);
 
 		printf("Ход [%c]: ", who);
-
-		scanf("%d", &pos);
-		//
+		if(whoIswho) scanf("%d", &pos);
+		else pos = makeTurn(field, enemy);
+		
 		if ((pos % 10 > 0 || pos % 10 <= 3) && (pos / 10 > 0 || pos / 10 <= 3) && field[(pos / 10)-1][(pos % 10)-1] == '*'){
 			whoIswho = !whoIswho;
 			field[(pos / 10)-1][(pos % 10)-1] = who;
@@ -74,7 +75,7 @@ int main(){
 			}
 		}
 		system("clear");
-		printf("+----+\ndebug info \nprevious turn: \nis won: %d\nwho: %c\ncounter: %d\nwinner: %d\n+----+\n", is_Won, who, counter, winner); //debug info
+		//printf("+----+\ndebug info \nprevious turn: \nis won: %d\nwho: %c\ncounter: %d\nwinner: %d\n+----+\n", is_Won, who, counter, winner); //debug info
 	}
 	return 0;
 }
