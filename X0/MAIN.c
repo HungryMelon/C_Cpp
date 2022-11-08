@@ -44,7 +44,7 @@ int main(){
 
 		printf("Ход [%c]: ", who);
 		if(whoIswho) scanf("%d", &pos);
-		else pos = makeTurn(field, enemy);
+		else pos = make_turn(field, who, enemy);
 		
 		if ((pos % 10 > 0 || pos % 10 <= 3) && (pos / 10 > 0 || pos / 10 <= 3) && field[(pos / 10)-1][(pos % 10)-1] == '*'){
 			whoIswho = !whoIswho;
