@@ -10,13 +10,18 @@ void print_field(char field[3][3]){
 	printf("╚═══╩═══╩═══╝\n");
 }
 
-int win_by_one(char may_field[3][3], char who){
+int win_by_one(char may_field_[3][3], char who){
+    char may_field[3][3];
+    for (int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            may_field[i][j] = may_field_[i][j];
+        }
+    }
 	for (int i = 0; i < 3; i++){
 		for(int j = 0; j < 3; j++){
 			if (may_field[i][j] == '*' || may_field[i][j] == '-'){
 				may_field[i][j] = who;
 				print_field(may_field);
-
 				if (isWon(may_field)){
 					return (i*10) + j;
 				} else {
@@ -52,9 +57,9 @@ int make_turn(char field[3][3], char who, char enemy){
 	// win by 1 turn
 	if(win_by_one(may_field, enemy) != -1) return win_by_one(may_field, enemy); //
 	else if(win_by_one(may_field, who) != -1) return win_by_one(may_field, who);
-	for (int i = 0; i < 9; i++){ 
+	for (int i = 0; i < 9; i++){
 		if(
-			(i == 0 || i == 2 || i == 6 || i == 8) && 
+			(i == 0 || i == 2 || i == 6 || i == 8) &&
 			(may_field[i/3][i%3] == '*') && (may_field[i/3][i%3] == '-')){
 				return ((i / 3) * 10) + (i % 3);
 		}
